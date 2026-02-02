@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Gönderi Adresi{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Gönderi Adresi</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="gonderi_adres">Adres:</label>
+            <textarea class="form-control" id="gonderi_adres" name="gonderi_adres" required>{{ current_adres }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>
+{% endblock %}

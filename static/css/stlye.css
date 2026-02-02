@@ -1,0 +1,1600 @@
+body {
+    background: linear-gradient(rgba(218, 227, 237, 0.5), rgba(218, 227, 237, 0.5)), url('/static/arkaplantekkamyon.png') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #333; /* Metin rengini koyu yap */
+    font-family: 'Poppins', sans-serif;
+}
+.main-color {
+    color: rgb(188, 210, 235);
+}
+.custom-navbar {
+    background-color: rgba(255, 255, 255, 0.3); /* Navbar arka plan rengini daha şeffaf yap */
+    padding: 0.5rem 1rem; /* Navbar padding */
+    border-bottom: 2px solid #ccc; /* Alt kenarlık */
+}
+
+.site-logo {
+    height: 80px; /* Daha büyük logo */
+    width: auto;
+    margin-left: 0rem; /* Logoyu navbar kenarlarıyla sıfırlamak için negatif margin */
+}
+
+.jumbotron-custom {
+    background-color: rgba(255, 255, 255, 0.5); /* Daha şeffaf arka plan */
+    color: #333; /* Metin rengi */
+    padding: 2rem; /* İçerik etrafında boşluk */
+    border-radius: 10px; /* Köşeleri yuvarlatma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+}
+
+.main-color {
+    color: rgba(52,76,112,0.5); /* Başlık rengi */
+}
+
+.lead {
+    color: rgba(6, 32, 39, 0.5); /* Açıklama metni rengi */
+}
+
+.btn-primary.custom-btn {
+    background-color: rgb(176, 134, 94); /* Buton arka plan rengi */
+    border-color: rgb(176, 134, 94); /* Buton kenarlık rengi */
+    color: #fff; /* Buton metin rengi */
+    border-radius: 50px; /* Buton köşelerini yuvarlatma */
+    padding: 0.75rem 1.5rem; /* Buton içeriği etrafında boşluk */
+    font-size: 1.2rem; /* Buton metin boyutu */
+    transition: background-color 0.3s ease; /* Arka plan rengi geçiş efekti */
+}
+
+.btn-primary.custom-btn:hover {
+    background-color: rgb(194, 103, 103); /* Hover durumu için arka plan rengi */
+    border-color: rgb(194, 103, 103); /* Hover durumu için kenarlık rengi */
+}
+
+.btn-secondary.custom-btn {
+    background-color: rgb(87, 112, 112); /* Buton arka plan rengi */
+    border-color: rgb(87, 112, 112); /* Buton kenarlık rengi */
+    color: #fff; /* Buton metin rengi */
+    border-radius: 50px; /* Buton köşelerini yuvarlatma */
+    padding: 0.75rem 1.5rem; /* Buton içeriği etrafında boşluk */
+    font-size: 1.2rem; /* Buton metin boyutu */
+    transition: background-color 0.3s ease; /* Arka plan rengi geçiş efekti */
+}
+
+.btn-secondary.custom-btn:hover {
+    background-color: rgb(176, 134, 94); /* Hover durumu için arka plan rengi */
+    border-color: rgb(176, 134, 94); /* Hover durumu için kenarlık rengi */
+}
+.card {
+    background-color: rgba(218, 227, 237, 0.8);
+    margin: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+    text-align: center;
+}
+.truck-icon {
+    color: rgb(55, 107, 159); /* Kamyon simgesi rengi */
+}
+.chat-icon {
+    color: rgb(70, 130, 180); /* Sohbet balonu simgesi rengi */
+}
+.maps-icon {
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+.complaint-icon {
+    color: rgb(255, 178, 102); /* Açık soft turuncu simge rengi */
+}
+
+
+.info-section {
+    background-color: rgba(255, 255, 255, 0.7); /* Daha şeffaf arka plan */
+    color: #333; /* Metin rengi */
+    padding: 3rem; /* İçerik etrafında daha fazla boşluk */
+    border-radius: 10px; /* Köşeleri yuvarlatma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    margin-top: 2rem; /* Üstten boşluk */
+    margin-bottom: 2rem; /* Alttan boşluk */
+}
+
+h2 {
+    color: #333; /* Başlık rengi */
+    font-weight: bold; /* Kalın başlık */
+    font-size: 2.0rem; /* Daha büyük başlık */
+}
+
+p {
+    margin-bottom: 1.5rem; /* Paragraflar arasında daha fazla boşluk */
+    line-height: 1.8; /* Daha yüksek satır yüksekliği */
+    font-size: 1.2rem; /* Daha büyük yazı */
+   
+}
+
+i {
+    margin-right: 3.0rem; /* İkon ve metin arasında boşluk */
+    color: #f39c12; /* İkon rengi (açık turuncu) */
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+.custom-title {
+    color: #090648; /* Başlık rengini değiştirdik */
+}
+.form-custom {
+    background-color: rgba(255, 255, 255, 0.5); /* Şeffaf arka plan */
+    padding: 2rem;
+    border-radius: 10px; /* Köşeleri yuvarlatma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #345070;
+}
+
+/* Kayıt Ol Butonunun Yeni Stilleri */
+.btn-custom {
+    background: linear-gradient(135deg, #376b9f 0%, #cd764e 100%);
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(175, 129, 60, 0.5);
+}
+a {
+    color: #376b9f; /* RGB (55,107,159) */
+    font-weight: bold;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+a:hover {
+    color: #f16f31; /* RGB (241,111,49) */
+    text-decoration: none;
+}
+.flash-message {
+    background-color: rgb(241, 111, 49);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flash-message i {
+    font-size: 18px;
+}
+
+.flash-message.alert-success {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: #fff;
+}
+
+.flash-message.alert-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: #fff;
+}
+
+.flash-message.alert-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #fff;
+}
+
+.flash-message.alert-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: #fff;
+}
+
+.flash-message:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.custom-navbar {
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+}
+
+.custom-navbar .navbar-brand img {
+    max-height: 50px;
+}
+
+.custom-navbar .nav-link {
+    color: var(--text-color-light);
+    font-size: 14px;
+}
+
+.custom-navbar .btn-danger {
+    background-color: rgb(241, 111, 79); /* Daha yumuşak kırmızımsı ton */
+    border: none;
+    color: var(--text-color-light); /* Açık metin rengi */
+    transition: background-color 0.3s ease;
+}
+
+.custom-navbar .btn-danger:hover {
+    background-color: rgb(217, 96, 69); /* Hover için koyu ton */
+}
+
+.site-logo {
+    height: 40px;
+    width: auto;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Arka plan rengini daha şeffaf hale getirdik */
+    padding: 2rem;
+    border-radius: 10px; /* Köşeleri yuvarlatma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    margin-top: 4rem; /* Navbar'ın altında yer açmak için margin-top eklendi */
+}
+
+h1, h2, .navbar-brand {
+    font-weight: 600;
+    color: rgb(35, 55, 80);
+}
+
+.btn-primary {
+    background-color: #376b9f; /* RGB (55,107,159) */
+    border-color: #376b9f;
+}
+
+.btn-primary:hover {
+    background-color: #f16f31; /* RGB (241,111,49) */
+    border-color: #f16f31;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: rgb(52, 76, 112);
+    color: white;
+    font-weight: bold;
+}
+
+.table tbody tr:hover {
+    background-color: rgb(194, 216, 241);
+    transition: background-color 0.3s ease;
+}
+
+
+.list-group-item.active {
+    background-color: #376b9f; /* RGB (55,107,159) */
+    border-color: #376b9f;
+}
+
+.list-group-item:hover {
+    background-color: #f16f31; /* RGB (241,111,49) */
+    border-color: #f16f31;
+    color: white;
+}
+
+.flash-message {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.flash-message.alert-success {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: #fff;
+}
+
+.flash-message.alert-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: #fff;
+}
+
+.flash-message.alert-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #fff;
+}
+
+.flash-message.alert-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: #fff;
+}
+
+.flash-message:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+#message-section {
+    width: 100%; /* Kutuyu tam genişlik yapabilirsiniz ya da istediğiniz bir oran belirleyebilirsiniz */
+    max-width: 600px; /* Maksimum genişlik sınırı koyabilirsiniz */
+    margin: 0 auto; /* Ortalamak için */
+}
+
+#message-text {
+    width: 100%; /* Kutunun genişliği formun tamamını kapsayacak şekilde */
+    resize: none; /* Kullanıcıların kutunun boyutunu değiştirmesini önlemek için */
+}
+
+.message-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;#messages-icon {
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    #messages-icon:hover {
+        background-color: #0056b3;
+        color: #fff;
+        border-color: #0056b3;
+    }
+    
+    #messages-icon .fa-envelope {
+        margin-right: 8px;
+        color: #0056b3;
+        transition: color 0.3s ease;
+    }
+    
+    #messages-icon:hover .fa-envelope {
+        color: #fff;
+    }
+    
+    #unread-count {
+        font-size: 12px;
+        padding: 5px 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    margin-top: 20px;
+}
+
+
+.message-box {
+    background-color: rgb(194, 216, 241);
+    padding: 15px;
+    border-radius: 8px;
+    color: rgb(35, 55, 80);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 15px);
+    max-width: calc(33.333% - 15px);
+}
+.btn:hover {
+    background-color: rgb(241, 111, 49);
+    color: white;
+    transition: all 0.3s ease;
+}
+.panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.navbar {
+    width: 100%;
+    background-color: rgb(52, 76, 112);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    margin-left: 30px;
+    height: 100px;
+    width: auto;
+}
+
+.navbar .title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+.navbar .logout {
+    margin-right: 20px;
+    background-color: rgb(241, 111, 49);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout:hover {
+    background-color: rgb(194, 216, 241);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.welcome h1 {
+    margin-right: 20px;
+}
+
+.welcome .message-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.message-box {
+    border: 1px solid rgb(194, 216, 241);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    position: absolute;
+    top: 300px; /* Adjust this value based on your image height */
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}
+
+.message-container {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.card {
+    background-color: #23607a;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    background-color: rgb(241, 111, 49);
+    border: none;
+    color: #2b7f8a;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: rgb(129, 162, 199);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 10px; /* Butonlar arasındaki boşluk */
+}
+
+.message-box {
+    position: absolute;
+    bottom: 100px; /* Resmin üstüne yerleşim */
+    right: 300px;
+    width: 400px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none; /* Başlangıçta gizli */
+    padding: 20px;
+}
+/* Genel Stil */
+/* Genel Stil */
+/* Genel Stil */
+h2 {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Tablo Konteyner */
+.table-container {
+    width: 100%;
+    margin: 20px 0;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 10px;
+}
+
+/* Tablo Stili */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table thead {
+    background-color: #343a40;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Durum Renkleri */
+.text-success {
+    color: #28a745 !important; /* Yeşil */
+}
+
+.text-warning {
+    color: #ffc107 !important; /* Sarı */
+}
+
+.text-primary {
+    color: #007bff !important; /* Mavi */
+}
+
+.text-info {
+    color: #17a2b8 !important; /* Açık Mavi */
+}
+
+.text-secondary {
+    color: #6c757d !important; /* Gri */
+}
+
+/* Buton Stilleri */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.btn-view {
+    background-color: #007bff;
+}
+
+.btn-view:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130;
+}
+
+/* Kargo Olmadığında Mesaj */
+.no-kargo-message {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+.container {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: rgb(52, 76, 112);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: rgb(52, 76, 112);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: rgb(41, 60, 90);
+}
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: rgb(52, 76, 112);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: rgb(41, 60, 90);
+}
+
+.alert {
+    margin-top: 20px;
+}
+
+.close {
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(245, 245, 245);
+    color: rgb(35, 55, 80);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+    background-color: rgb(52, 76, 112);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    height: 60px;
+    width: auto;
+}
+
+.navbar .logout-btn {
+    background-color: rgb(241, 111, 49);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout-btn:hover {
+    background-color: #c2d8f1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Şeffaflık eklendi */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: rgb(52, 76, 112);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: rgb(52, 76, 112);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: rgb(41, 60, 90);
+}
+
+.carousel-caption .text {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.navbar {
+    background-color: rgb(52, 76, 112);
+}
+.navbar-brand, .nav-link, .nav-link:hover {
+    color: white !important;
+}
+.card {
+    background-color: rgb(194, 216, 241);
+    border: none;
+}
+.btn {
+    background-color: rgb(241, 111, 49);
+    color: white;
+}
+.btn:hover {
+    background-color: rgb(241, 140, 80);
+}
+.map-container {
+    height: 400px;
+    width: 100%;
+    border: 2px solid rgb(35, 55, 80);
+    margin-top: 20px;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(245, 245, 245);
+    color: rgb(35, 55, 80);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+    background-color: rgb(52, 76, 112);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    height: 60px;
+    width: auto;
+}
+
+.navbar .logout-btn {
+    background-color: rgba(14, 25, 87, 0.827);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout-btn:hover {
+    background-color: rgb(194, 216, 241);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: rgb(52, 76, 112);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    background-color: rgb(162, 183, 204);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 200px;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stat-box i {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: rgb(162, 183, 204);
+    color: #fff;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(194, 216, 241, 0.5);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(55, 107, 159, 0.2);
+}
+
+.table thead th {
+    text-align: center;
+}
+
+.table td,
+.table th {
+    text-align: center;
+}
+
+.alert-text {
+    font-weight: bold;
+    color: rgb(241, 111, 49);
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(245, 245, 245);
+    color: rgb(35, 55, 80);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+    background-color: rgb(52, 76, 112);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar .logout-btn {
+    background-color: rgb(241, 111, 49);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navbar .logout-btn:hover {
+    background-color: rgb(194, 216, 241);
+}
+
+.container {
+    max-width: 1400px; /* Konteyner genişliği büyütüldü */
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: rgb(52, 76, 112);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    background-color: rgb(162, 183, 204);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stat-box i {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.table-container {
+    margin-bottom: 20px;
+}
+
+.table-container .table-box {
+    display: flex;
+    align-items: center;
+    background-color: rgb(194, 216, 241);
+    color: rgb(35, 55, 80);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    margin: 10px 0;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 400px;
+}
+
+.table-container .table-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.table-container .table-box img {
+    width: 400px; /* Kare şeklinde resim */
+    height: 400px; /* Kare şeklinde resim */
+    object-fit: cover;
+}
+
+.table-container .box-content {
+    padding: 20px;
+}
+
+.table-container .box-content h3 {
+    margin: 0;
+    color: rgb(52, 76, 112);
+}
+
+.table-container .box-content p {
+    margin-top: 10px;
+    color: rgb(35, 55, 80);
+}
+
+.table-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.table-content table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table-content th,
+.table-content td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-content thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: rgb(162, 183, 204);
+    color: #fff;
+}
+
+.table-content tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-content .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(194, 216, 241, 0.5);
+}
+
+.table-content .table-hover tbody tr:hover {
+    background-color: rgba(55, 107, 159, 0.2);
+}
+
+.table-content thead th {
+    text-align: center;
+}
+
+.table-content td,
+.table-content th {
+    text-align: center;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.card-body p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.map-container {
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+/* Mesajlar */
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: inherit;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.card-body p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.map-container {
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+/* Mesajlar */
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: inherit;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+/* Progress Bar */
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.progress-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #ddd;
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.progress-step {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.progress-step i {
+    font-size: 24px;
+    color: #ccc;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.progress-step p {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+}
+
+.progress-step.completed i {
+    color: white;
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+.progress-step.completed p {
+    color: #4caf50;
+}
+
+.progress-step.active i {
+    color: white;
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.progress-step.active p {
+    color: #ff9800;
+}
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.card-body p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.map-container {
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+/* Mesajlar */
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: inherit;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+/* Progress Bar */
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.progress-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #ddd;
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.progress-step {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.progress-step i {
+    font-size: 24px;
+    color: #ccc;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.progress-step p {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+}
+
+.progress-step.completed i {
+    color: white;
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+.progress-step.completed p {
+    color: #4caf50;
+}
+
+.progress-step.active i {
+    color: white;
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.progress-step.active p {
+    color: #ff9800;
+}

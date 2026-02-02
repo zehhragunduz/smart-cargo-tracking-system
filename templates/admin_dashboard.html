@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stlye.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <!-- Sol tarafta logo -->
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='analogo.png') }}" alt="Logo" class="logo">
+        </a>
+        <!-- Ortada Admin Paneli yazısı -->
+        <div class="mx-auto">
+            <span class="navbar-text" style="font-size: 1.5rem; font-weight: bold; color: rgb(241, 111, 49);">
+                Admin Paneli
+            </span>
+        </div>
+        <!-- Sağ tarafta Çıkış Yap butonu -->
+        <div>
+            <a class="btn logout-btn" href="{{ url_for('logout') }}">
+                Çıkış Yap
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Admin Paneli</h1>
+
+    <h2>İstatistikler</h2>
+    <div class="stats-container">
+        <div class="stat-box">
+            <i class="fas fa-box"></i>
+            <h3>Aktif Kargo Sayısı</h3>
+            <p>{{ aktif_kargo_sayisi }}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-check-circle"></i>
+            <h3>Teslim Edilmiş Kargo Sayısı</h3>
+            <p>{{ teslim_edilmis_kargo_sayisi }}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-paper-plane"></i>
+            <h3>Gönderilmiş Kargo Sayısı</h3>
+            <p>{{ gonderilmis_kargo_sayisi }}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-undo"></i>
+            <h3>İade Edilmiş Kargo Sayısı</h3>
+            <p>{{ iade_edilmis_kargo_sayisi }}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-truck-loading"></i>
+            <h3>Toplam Kargo Sayısı</h3>
+            <p>{{ toplam_kargo_sayisi }}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-users"></i>
+            <h3>Toplam Kullanıcı Sayısı</h3>
+            <p>{{ toplam_kullanici_sayisi }}</p>
+        </div>
+    </div>
+
+    <!-- Boxlar -->
+    <div class="table-container">
+        <div class="table-box" onclick="toggleTable('kargolar')">
+            <img src="{{ url_for('static', filename='/kargopaketi3.png') }}" alt="Kargolar">
+            <div class="box-content">
+                <h3>Kargolar</h3>
+                <p>Kargoların tüm bilgilerine buradan ulaşabilirsiniz.</p>
+            </div>
+        </div>
+        <div id="kargolar" class="table-content">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Kargo ID</th>
+                        <th>Gönderici</th>
+                        <th>Alıcı</th>
+                        <th>Durum</th>
+                        <th>Verilme Tarihi</th>
+                        <th>Gönderim Tarihi</th>
+                        <th>Fiyat</th>
+                        <th>Ağırlık</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for kargo in kargolar %}
+                    <tr>
+                        <td>{{ kargo.KargoID }}</td>
+                        <td>{{ kargo.GondericiAdi }}</td>
+                        <td>{{ kargo.AliciAdi }}</td>
+                        <td>{{ kargo.KargoDurumu }}</td>
+                        <td>{{ kargo.VerilmeTarihi }}</td>
+                        <td>{{ kargo.GonderimTarihi }}</td>
+                        <td>{{ kargo.KargoFiyati }}</td>
+                        <td>{{ kargo.KargoAgirligi }}</td>
+                        <td>{{ kargo.lat }}</td>
+                        <td>{{ kargo.lng }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-box" onclick="toggleTable('kullanicilar')">
+            <img src="{{ url_for('static', filename='/users.jpg') }}" alt="Kullanıcılar">
+            <div class="box-content">
+                <h3>Kullanıcılar</h3>
+                <p>Kullanıcıların tüm bilgilerine buradan ulaşabilirsiniz.</p>
+            </div>
+        </div>
+        <div id="kullanicilar" class="table-content">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Kullanıcı ID</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for kullanici in kullanicilar %}
+                    <tr>
+                        <td>{{ kullanici.KullaniciID }}</td>
+                        <td>{{ kullanici.KullaniciAdi }}</td>
+                        <td>{{ kullanici.Email }}</td>
+                        <td>{{ kullanici.Rol }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-box" onclick="toggleTable('mesajlar')">
+            <img src="{{ url_for('static', filename='/Vector message icon set_.jpg') }}" alt="Mesajlar">
+            <div class="box-content">
+                <h3>Kullanıcılar Arası Mesajlar</h3>
+                <p>Kullanıcılar arasındaki mesajlaşmaları buradan görebilirsiniz.</p>
+            </div>
+        </div>
+        <div id="mesajlar" class="table-content">
+            {% if kullanici_mesajlari %}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Gönderen</th>
+                        <th>Alıcı</th>
+                        <th>Mesaj</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mesaj in kullanici_mesajlari %}
+                    <tr>
+                        <td>{{ mesaj.SenderName }}</td>
+                        <td>{{ mesaj.ReceiverName }}</td>
+                        <td>{{ mesaj.MessageText }}</td>
+                        <td>{{ mesaj.SentAt }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Henüz kullanıcılar arası mesaj yok.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-box" onclick="toggleTable('sikayetler')">
+            <img src="{{ url_for('static', filename='/şikayet.jpg') }}" alt="Şikayetler">
+            <div class="box-content">
+                <h3>Şikayet ve Talepler</h3>
+                <p>Şikayet ve talepleri buradan görebilirsiniz.</p>
+            </div>
+        </div>
+        <div id="sikayetler" class="table-content">
+            {% if sikayet_talep_mesajlari %}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Gönderen</th>
+                        <th>Mesaj</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mesaj in sikayet_talep_mesajlari %}
+                    <tr>
+                        <td>{{ mesaj.SenderName }}</td>
+                        <td>{{ mesaj.FeedbackText }}</td>
+                        <td>{{ mesaj.SentAt }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Henüz şikayet veya talep mesajı yok.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleTable(tableId) {
+        var tableContent = document.getElementById(tableId);
+        if (tableContent.style.display === "none" || tableContent.style.display === "") {
+            tableContent.style.display = "block";
+        } else {
+            tableContent.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>

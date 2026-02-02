@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kargo Detayları (Gönderen)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRYO8_9Qjcq9PSoc6anJonGEWExE-dxQo"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Kargo Detayları</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kargo ID: {{ kargo.KargoID }}</h5>
+                <p class="card-text">Gönderici: {{ kargo.GondericiAdi }}</p>
+                <p class="card-text">Alıcı: {{ kargo.AliciAdi }}</p>
+                <p class="card-text">Durum: {{ kargo.KargoDurumu }}</p>
+                <p class="card-text">Verilme Tarihi: {{ kargo.VerilmeTarihi }}</p>
+                <div id="map" style="height: 400px; width: 100%;"></div>
+                <form method="POST" class="mt-4">
+                    <div class="form-group">
+                        <label for="kargo_durumu">Kargo Durumu Güncelle:</label>
+                        <select class="form-control" name="kargo_durumu" required>
+                            <option value="Gönderildi">Gönderildi</option>
+                            <option value="Yolda">Yolda</option>
+                            <option value="Teslim Edildi">Teslim Edildi</option>
+                            <option value="İade Edildi">İade Edildi</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="lat" name="lat" value="{{ kargo.lat }}">
+                    <input type="hidden" id="lng" name="lng" value="{{ kargo.lng }}">
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function initMap() {
+            var initialLat = parseFloat("{{ kargo.lat }}") || 41.0082;
+            var initialLng = parseFloat("{{ kargo.lng }}") || 28.9784;
+            var location = {lat: initialLat, lng: initialLng};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: location
+            });
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(event) {
+                document.getElementById('lat').value = event.latLng.lat();
+                document.getElementById('lng').value = event.latLng.lng();
+            });
+        }
+        window.onload = initMap;
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gönderici Paneli</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mt-5">Gönderici Paneli</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <a href="{{ url_for('logout') }}" class="btn btn-danger mb-4">Çıkış Yap</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kargo ID</th>
+                    <th>Gönderici</th>
+                    <th>Alıcı</th>
+                    <th>Kargo Durumu</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kargo in kargolar %}
+                <tr>
+                    <td>{{ kargo.KargoID }}</td>
+                    <td>{{ kargo.GondericiID }}</td>
+                    <td>{{ kargo.AliciID }}</td>
+                    <td>{{ kargo.KargoDurumu }}</td>
+                    <td>
+                        <a href="{{ url_for('kargo_detay', kargo_id=kargo.KargoID) }}" class="btn btn-primary">Detaylar</a>
+                        <form method="POST" action="{{ url_for('iade', kargo_id=kargo.KargoID) }}" class="d-inline">
+                            <button type="submit" class="btn btn-warning">İade Oluştur</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

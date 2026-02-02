@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açılış Videosu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted playsinline id="introVideo">
+        <source src="{{ url_for('static', filename='/açılışvideo.mp4') }}" type="video/mp4">
+        Tarayıcınız video oynatmayı desteklemiyor.
+    </video>
+    <script>
+        const video = document.getElementById('introVideo');
+        video.onended = () => {
+            window.location.href = "/home";
+        };
+    </script>
+</body>
+</html>

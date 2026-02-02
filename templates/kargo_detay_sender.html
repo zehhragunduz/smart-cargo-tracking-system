@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kargo Detayları</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stlye.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar {
+            background-color: rgb(52, 76, 112);
+        }
+        .navbar-brand img {
+            height: 40px;
+        }
+        .navbar-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: rgb(241, 111, 49);
+        }
+        .logout-btn {
+            background-color: rgb(241, 111, 49);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 5rem;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+        }
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .progress-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        .progress-step i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .progress-step p {
+            font-weight: bold;
+        }
+        .progress-step.completed i,
+        .progress-step.completed p {
+            color: #28a745;
+        }
+        .progress-step.active i,
+        .progress-step.active p {
+            color: #ffc107;
+        }
+        .map-container {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='/analogo.png') }}" alt="Logo">
+        </a>
+        <div class="mx-auto">
+            <span class="navbar-text">
+                Gönderici Paneli
+            </span>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="{{ url_for('logout') }}" class="logout-btn">Çıkış Yap</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1 class="mb-4">Kargo Detayları</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- Kargo Bilgileri -->
+        <div class="card">
+            <div class="card-header">
+                Kargo Bilgileri
+            </div>
+            <div class="card-body">
+                <p><strong>Kargo ID:</strong> {{ kargo.KargoID }}</p>
+                <p><strong>Gönderici:</strong> {{ kargo.GondericiAdi }}</p>
+                <p><strong>Alıcı:</strong> {{ kargo.AliciAdi }}</p>
+                <p><strong>Durum:</strong> 
+                    {% if kargo.KargoDurumu == 'Teslim Edildi' %}
+                        <i class="fas fa-check-circle text-success"></i> {{ kargo.KargoDurumu }}
+                    {% elif kargo.KargoDurumu == 'İade Edildi' %}
+                        <i class="fas fa-undo-alt text-warning"></i> {{ kargo.KargoDurumu }}
+                    {% elif kargo.KargoDurumu == 'Yolda' %}
+                        <i class="fas fa-truck text-primary"></i> {{ kargo.KargoDurumu }}
+                    {% elif kargo.KargoDurumu == 'Hazırlanıyor' %}
+                        <i class="fas fa-box-open text-info"></i> {{ kargo.KargoDurumu }}
+                    {% elif kargo.KargoDurumu == 'Gönderildi' %}
+                        <i class="fas fa-shipping-fast text-secondary"></i> {{ kargo.KargoDurumu }}
+                    {% endif %}
+                </p>
+                <p><strong>Verilme Tarihi:</strong> {{ kargo.VerilmeTarihi }}</p>
+                <p><strong>Gönderim Tarihi:</strong> {{ kargo.GonderimTarihi }}</p>
+                <p><strong>Kargo Fiyatı:</strong> {{ kargo.KargoFiyati }}</p>
+                <p><strong>Kargo Ağırlığı:</strong> {{ kargo.KargoAgirligi }}</p>
+
+                <!-- Kargo Durumu Görsel Gösterimi -->
+                <div class="progress-container">
+                    <div class="progress-step {% if kargo.KargoDurumu in ['Hazırlanıyor', 'Gönderildi', 'Yolda', 'Teslim Edildi'] %}completed{% endif %}">
+                        <i class="fas fa-cogs"></i>
+                        <p>Hazırlanıyor</p>
+                    </div>
+                    <div class="progress-step {% if kargo.KargoDurumu in ['Gönderildi', 'Yolda', 'Teslim Edildi'] %}completed{% endif %}">
+                        <i class="fas fa-paper-plane"></i>
+                        <p>Gönderildi</p>
+                    </div>
+                    <div class="progress-step {% if kargo.KargoDurumu == 'Yolda' %}active{% elif kargo.KargoDurumu in ['Teslim Edildi'] %}completed{% endif %}">
+                        <i class="fas fa-shipping-fast"></i>
+                        <p>Yolda</p>
+                    </div>
+                    <div class="progress-step {% if kargo.KargoDurumu == 'Teslim Edildi' %}completed{% endif %}">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Teslim Edildi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kargo Durumu Güncelleme Formu -->
+        <div class="card">
+            <div class="card-header">
+                Kargo Durumu Güncelle
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="kargo_durumu">Kargo Durumu:</label>
+                        <select class="form-control" id="kargo_durumu" name="kargo_durumu" onchange="toggleFields()">
+                            <option value="Hazırlanıyor" {% if kargo.KargoDurumu == "Hazırlanıyor" %}selected{% endif %}>Hazırlanıyor</option>
+                            <option value="Yolda" {% if kargo.KargoDurumu == "Yolda" %}selected{% endif %}>Yolda</option>
+                            <option value="Gönderildi" {% if kargo.KargoDurumu == "Gönderildi" %}selected{% endif %}>Gönderildi</option>
+                            <option value="Teslim Edildi" {% if kargo.KargoDurumu == "Teslim Edildi" %}selected{% endif %}>Teslim Edildi</option>
+                            <option value="İade Edildi" {% if kargo.KargoDurumu == "İade Edildi" %}selected{% endif %}>İade Edildi</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="teslim_alan_grup" style="display: none;">
+                        <label for="teslim_alan">Teslim Alan Kişi:</label>
+                        <input type="text" class="form-control" id="teslim_alan" name="teslim_alan" value="{{ kargo.TeslimAlan }}">
+                    </div>
+                    <div class="form-group" id="iade_adres_grup" style="display: none;">
+                        <label for="iade_adres">İade Adresi:</label>
+                        <textarea class="form-control" id="iade_adres" name="iade_adres">{{ kargo.IadeAdres }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="lat">Latitude:</label>
+                        <input type="text" class="form-control" id="lat" name="lat" value="{{ kargo.lat }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lng">Longitude:</label>
+                        <input type="text" class="form-control" id="lng" name="lng" value="{{ kargo.lng }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>Harita</h2>
+        <div id="map" class="map-container"></div>
+    </div>
+
+    <!-- Google Maps API -->
+    <script>
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var initialLocation = { lat: 39.9334, lng: 32.8597 }; // Ankara, Türkiye'nin merkezi
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: initialLocation
+            });
+
+            var marker = new google.maps.Marker({
+                position: initialLocation,
+                map: map,
+                draggable: true
+            });
+
+            function geocodeLatLng(lat, lng) {
+                var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+                geocoder.geocode({ 'location': latlng }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            document.getElementById('lat').value = lat;
+                            document.getElementById('lng').value = lng;
+                            document.getElementById('adres').value = results[0].formatted_address;
+                        }
+                    }
+                });
+            }
+
+            google.maps.event.addListener(marker, 'dragend', function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                geocodeLatLng(lat, lng);
+            });
+
+            document.getElementById('lat').addEventListener('change', function() {
+                var lat = parseFloat(this.value);
+                var lng = parseFloat(document.getElementById('lng').value);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    var newLocation = { lat: lat, lng: lng };
+                    marker.setPosition(newLocation);
+                    map.setCenter(newLocation);
+                }
+            });
+
+            document.getElementById('lng').addEventListener('change', function() {
+                var lat = parseFloat(document.getElementById('lat').value);
+                var lng = parseFloat(this.value);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    var newLocation = { lat: lat, lng: lng };
+                    marker.setPosition(newLocation);
+                    map.setCenter(newLocation);
+                }
+            });
+
+            if (document.getElementById('lat').value && document.getElementById('lng').value) {
+                var lat = parseFloat(document.getElementById('lat').value);
+                var lng = parseFloat(document.getElementById('lng').value);
+                geocodeLatLng(lat, lng);
+            }
+        }
+
+        function toggleFields() {
+            var kargoDurumu = document.getElementById("kargo_durumu").value;
+            var teslimAlanGrup = document.getElementById("teslim_alan_grup");
+            var iadeAdresGrup = document.getElementById("iade_adres_grup");
+
+            if (kargoDurumu === "Teslim Edildi") {
+                teslimAlanGrup.style.display = "block";
+                iadeAdresGrup.style.display = "none";
+            } else if (kargoDurumu === "İade Edildi") {
+                teslimAlanGrup.style.display = "none";
+                iadeAdresGrup.style.display = "block";
+            } else {
+                teslimAlanGrup.style.display = "none";
+                iadeAdresGrup.style.display = "none";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleFields();
+            initMap();
+        });
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRYO8_9Qjcq9PSoc6anJonGEWExE-dxQo&callback=initMap"></script>
+</body>
+</html>

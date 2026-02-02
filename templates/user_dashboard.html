@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kullanıcı Paneli</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stlye.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="static/analogo.png" alt="Logo" class="logo">
+        <div class="title">Kullanıcı Paneli</div>
+        <div class="actions">
+            <a class="btn btn-danger text-white" href="{{ url_for('logout') }}" style="background-color: rgb(241, 111, 49); border: none;">
+                Çıkış Yap
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Hoşgeldiniz Mesajı -->
+        <div class="welcome d-flex align-items-center justify-content-between">
+            <h1 class="welcome-text">Hoşgeldiniz</h1>
+            <div class="right-buttons d-flex">
+                <button class="btn btn-outline-secondary" data-url="{{ url_for('uye_bilgileri') }}" id="uye-bilgileri-button">
+                    Bilgilerim
+                </button>
+                <script>
+                    document.getElementById('uye-bilgileri-button').addEventListener('click', function () {
+                        const url = this.getAttribute('data-url');
+                        window.location.href = url;
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="container mt-5">
+            <div class="text-center">
+                <h2 style="color: rgb(35, 55, 80); font-weight: 500;">Hoş Geldiniz! Kargo işlemlerinizi kolayca yönetin.</h2>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex justify-content-end mb-3">
+                    <button id="send-message-icon" class="btn btn-outline-primary position-relative mr-2">
+                       <i class="fas fa-paper-plane"></i> Mesaj Gönder
+                    </button>
+                    <button id="inbox-icon" class="btn btn-outline-secondary position-relative">
+                       <i class="fas fa-inbox"></i> Gelen Kutusu
+                       <span id="unread-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+                        0
+                       </span>
+                    </button>
+                </div>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} flash-message alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Resim -->
+            <img src="static/dışresim.png" alt="Your Image">
+
+            <h2 class="mb-4 text-center">Kargolarım</h2>
+            <div class="table-container">
+                {% if kargolar %}
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Kargo ID</th>
+                            <th>Durum</th>
+                            <th>Detay</th>
+                            <th>İade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for kargo in kargolar %}
+                        <tr>
+                            <td>{{ kargo.KargoID }}</td>
+                            <td>
+                                {% if kargo.KargoDurumu == 'Yolda' %}
+                                    <i class="fas fa-truck text-primary"></i> {{ kargo.KargoDurumu }}
+                                {% elif kargo.KargoDurumu == 'Gönderildi' %}
+                                    <i class="fas fa-shipping-fast text-secondary"></i> {{ kargo.KargoDurumu }}
+                                {% elif kargo.KargoDurumu == 'Hazırlanıyor' %}
+                                    <i class="fas fa-box-open text-info"></i> {{ kargo.KargoDurumu }}
+                                {% elif kargo.KargoDurumu == 'Teslim Edildi' %}
+                                    <i class="fas fa-check-circle text-success"></i> {{ kargo.KargoDurumu }}
+                                {% elif kargo.KargoDurumu == 'İade Edildi' %}
+                                    <i class="fas fa-undo-alt text-warning"></i> {{ kargo.KargoDurumu }}
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ url_for('kargo_detay', kargo_id=kargo.KargoID) }}" class="btn btn-view">Detay</a></td>
+                            {% if kargo.KargoDurumu != 'İade Edildi' %}
+                            <td><a href="{{ url_for('iade', kargo_id=kargo.KargoID) }}" class="btn btn-danger btn-sm">İade Et</a></td>
+                            {% else %}
+                            <td><span class="badge badge-danger">İade Edildi</span></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="no-kargo-message">Henüz kargonuz yok.</p>
+                {% endif %}
+            </div>
+
+            <!-- Mesaj Kutusu -->
+            <div id="message-section" class="message-box mt-4" style="display:none;">
+                <h2>Mesajlar</h2>
+                <div class="d-flex">
+                    <div class="list-group" id="user-list">
+                        {% for kullanici in kullanicilar %}
+                        <a href="#" class="list-group-item list-group-item-action" data-user-id="{{ kullanici.KullaniciID }}">{{ kullanici.KullaniciAdi }}</a>
+                        {% endfor %}
+                    </div>
+                    <div class="flex-grow-1 ml-3">
+                        <div id="message-container" class="border p-3 message-container">
+                            <p>Lütfen bir kullanıcı seçin.</p>
+                        </div>
+                        <form id="message-form" style="display: none;">
+                            <div class="form-group">
+                                <textarea id="message-text" class="form-control" rows="3" placeholder="Mesajınızı yazın..."></textarea>
+                            </div>
+                            <button type="submit" class="btn">Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İletişim Kutusu -->
+            <div class="container mt-5">
+                <h2>Bizimle İletişime Geçin</h2>
+                <form method="POST" action="{{ url_for('contact_admin') }}">
+                    <div class="form-group">
+                        <label for="contact_message">Mesaj:</label>
+                        <textarea class="form-control" id="contact_message" name="contact_message" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Gönder</button>
+                </form>
+            </div>
+
+            <div class="container mt-5">
+                <h2>Gelen Kutusu</h2>
+                {% if messages %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Gönderen</th>
+                                <th>Mesaj</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for message in messages %}
+                            <tr>
+                                <td>{{ message.sender_name }}</td>
+                                <td>{{ message.MessageText }}</td>
+                                <td>{{ message.SentAt.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Hiç mesajınız yok.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#send-message-icon').on('click', function(e) {
+                e.preventDefault();
+                $('#message-section').toggle();
+            });
+
+            $('#inbox-icon').on('click', function(e) {
+                e.preventDefault();
+                $('#message-section').toggle();
+            });
+
+            $('#user-list a').on('click', function(e) {
+                e.preventDefault();
+                var userId = $(this).data('user-id');
+                $('#user-list a').removeClass('active');
+                $(this).addClass('active');
+                $('#message-container').empty();
+                $('#message-form').show();
+                $.get('/get_messages/' + userId, function(data) {
+                    if (data.length > 0) {
+                        data.forEach(function(message) {
+                            $('#message-container').append('<p><strong>' + message.sender + ':</strong> ' + message.content + ' <small>(' + new Date(message.timestamp).toLocaleString() + ')</small></p>');
+                        });
+                    } else {
+                        $('#message-container').append('<p>Bu kullanıcı ile henüz mesaj yok.</p>');
+                    }
+                });
+            });
+
+            $('#message-form').on('submit', function(e) {
+                e.preventDefault();
+                var messageText = $('#message-text').val();
+                var receiverId = $('#user-list a.active').data('user-id');
+
+                // Eğer receiverId değeri undefined ise bir hata mesajı göster
+                if (typeof receiverId === "undefined") {
+                    alert("Lütfen bir kullanıcı seçin.");
+                    return;
+                }
+
+                $.post('/send_message', {
+                    sender_id: {{ session['user_id'] }},
+                    receiver_id: receiverId,
+                    content: messageText
+                }, function(response) {
+                    if (response.success) {
+                        $('#message-container').append('<p><strong>Ben:</strong> ' + messageText + ' <small>(' + new Date().toLocaleString() + ')</small></p>');
+                        $('#message-text').val('');
+                    } else {
+                        alert("Mesaj gönderilemedi. Lütfen tekrar deneyin.");
+                    }
+                }).fail(function() {
+                    alert("Mesaj gönderilemedi. Lütfen tekrar deneyin.");
+                });
+            });
+        });
+    </script>
+</body>
+</html>

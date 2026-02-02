@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gönderici Paneli</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stlye.css') }}">
+    
+    <style>
+        .left-side, .right-side {
+            width: 50%;
+        }
+        .right-side {
+            position: relative;
+        }
+        #message-section, #inbox-section {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .message-box, .inbox-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            z-index: 10;
+        }
+        .message-container {
+            height: 400px;
+            overflow-y: scroll;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .custom-table th, .custom-table td {
+            padding: 12px;
+            text-align: left;
+        }
+        .custom-table th {
+            background-color: rgb(52, 76, 112);
+            color: white;
+        }
+        .custom-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .custom-table tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(52, 76, 112);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='analogo.png') }}" alt="Logo" class="site-logo" style="height: 40px;">
+            </a>
+            <div class="mx-auto">
+                <span class="navbar-text" style="font-size: 1.5rem; font-weight: bold; color: rgb(241, 111, 49);">
+                    Gönderici Paneli
+                </span>
+            </div>
+            <div>
+                <a class="btn btn-danger text-white" href="{{ url_for('logout') }}" style="background-color: rgb(241, 111, 49); border: none;">
+                    Çıkış Yap
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <div class="text-center">
+            <h2 style="color: rgb(35, 55, 80); font-weight: 500;">Hoş Geldiniz! Kargo işlemlerinizi kolayca yönetin.</h2>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-end mb-3">
+                <button id="send-message-icon" class="btn btn-outline-primary position-relative mr-2">
+                   <i class="fas fa-paper-plane"></i> Mesaj Gönder
+                </button>
+                <button id="inbox-icon" class="btn btn-outline-secondary position-relative">
+                   <i class="fas fa-inbox"></i> Gelen Kutusu
+                   <span id="unread-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+                    0
+                   </span>
+                </button>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} flash-message alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-md-6 left-side">
+                <h2>Kargo Oluştur</h2>
+                <form method="POST" action="{{ url_for('sender_dashboard') }}">
+                    <div class="form-group">
+                        <label for="alici_email">Alıcı Email:</label>
+                        <input type="email" class="form-control" id="alici_email" name="alici_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alici_adres">Alıcı Adres:</label>
+                        <textarea class="form-control" id="alici_adres" name="alici_adres" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="kargo_agirligi">Kargo Ağırlığı (kg):</label>
+                        <input type="number" step="0.01" class="form-control" id="kargo_agirligi" name="kargo_agirligi" required oninput="calculateShippingCost()">
+                    </div>
+                    <div class="form-group">
+                        <label for="kargo_fiyati">Kargo Fiyatı (₺):</label>
+                        <input type="number" step="0.01" class="form-control" id="kargo_fiyati" name="kargo_fiyati" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+            </div>
+            <div class="col-md-6 right-side">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='/kargopaketi2.png') }}" alt="Shipping Image" id="shipping-image">
+                    <div id="message-section" class="message-box">
+                        <h2>Mesaj Gönder</h2>
+                        <form id="message-form" method="POST" action="{{ url_for('send_message') }}">
+                            <div class="form-group">
+                                <label for="receiver_name">Alıcı Adı:</label>
+                                <input type="text" class="form-control" id="receiver_name" name="receiver_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text">Mesaj:</label>
+                                <textarea id="message-text" name="content" class="form-control" rows="3" placeholder="Mesajınızı yazın..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Gönder</button>
+                        </form>
+                    </div>
+                    
+                </div>
+                <div id="inbox-section" class="inbox-box">
+                    <h2>Gelen Kutusu</h2>
+                    <div id="inbox-container" class="message-container">
+                        <!-- Gelen Mesajlar Burada Gösterilecek -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mb-4 text-center">Kargolarım</h2>
+        <div class="table-container">
+            {% if kargolar %}
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Kargo ID</th>
+                        <th>Durum</th>
+                        <th>Detay</th>
+                        <th>İade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for kargo in kargolar %}
+                    <tr>
+                        <td>{{ kargo.KargoID }}</td>
+                        <td>
+                            {% if kargo.KargoDurumu == 'Teslim Edildi' %}
+                                <i class="fas fa-check-circle text-success"></i> {{ kargo.KargoDurumu }}
+                            {% elif kargo.KargoDurumu == 'İade Edildi' %}
+                                <i class="fas fa-undo-alt text-warning"></i> {{ kargo.KargoDurumu }}
+                            {% elif kargo.KargoDurumu == 'Yolda' %}
+                                <i class="fas fa-truck text-primary"></i> {{ kargo.KargoDurumu }}
+                            {% elif kargo.KargoDurumu == 'Hazırlanıyor' %}
+                                <i class="fas fa-box-open text-info"></i> {{ kargo.KargoDurumu }}
+                            {% elif kargo.KargoDurumu == 'Gönderildi' %}
+                                <i class="fas fa-shipping-fast text-secondary"></i> {{ kargo.KargoDurumu }}
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ url_for('kargo_detay', kargo_id=kargo.KargoID) }}" class="btn btn-view">Detay</a></td>
+                        {% if kargo.KargoDurumu != 'İade Edildi' %}
+                        <td><a href="{{ url_for('iade', kargo_id=kargo.KargoID) }}" class="btn btn-danger btn-sm">İade Et</a></td>
+                        {% else %}
+                        <td><span class="badge badge-danger">İade Edildi</span></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-kargo-message">Henüz kargonuz yok.</p>
+            {% endif %}
+        </div>
+
+        <div class="container mt-5">
+            <h2>Bizimle İletişime Geçin</h2>
+            <form method="POST" action="{{ url_for('contact_admin') }}">
+                <div class="form-group">
+                    <label for="contact_message">Mesaj:</label>
+                    <textarea class="form-control" id="contact_message" name="contact_message" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const userId = "{{ session['user_id'] }}"; // Sunucudan kullanıcı ID'si alınıyor.
+
+            // Mesaj gönderme bölümünü açar.
+            $('#send-message-icon').on('click', function (e) {
+                e.preventDefault();
+                $('#message-section').toggle();
+                $('#inbox-section').hide();
+            });
+
+            // Gelen kutusunu açar ve mesajları yükler.
+            $('#inbox-icon').on('click', function (e) {
+                e.preventDefault();
+                $('#inbox-section').toggle();
+                $('#message-section').hide();
+                loadInbox();
+            });
+
+            function loadInbox() {
+                $.get('/get_inbox', function (data) {
+                    $('#inbox-container').empty();
+                    if (data.length > 0) {
+                        data.forEach(function (conversation) {
+                            var username = conversation.username;
+                            var messages = conversation.messages;
+
+                            var table = '<table class="custom-table"><thead><tr><th>Gönderen: ' + username + '</th><th>Mesaj</th><th>Tarih</th></tr></thead><tbody>';
+                            messages.forEach(function (message) {
+                                table += '<tr><td>' + message.sender + '</td><td>' + message.content + '</td><td>' + new Date(message.timestamp).toLocaleString() + '</td></tr>';
+                            });
+                            table += '</tbody></table>';
+                            $('#inbox-container').append(table);
+                        });
+                    } else {
+                        $('#inbox-container').append('<p>Hiç mesajınız yok.</p>');
+                    }
+                }).fail(function () {
+                    alert("Gelen kutusu yüklenemedi. Lütfen tekrar deneyin.");
+                });
+            }
+
+            // Mesaj gönderme işlemi.
+            $('#message-form').on('submit', function (e) {
+                e.preventDefault();
+                var receiverName = $('#receiver_name').val();
+                var messageText = $('#message-text').val();
+
+                if (!receiverName || !messageText) {
+                    alert("Lütfen alıcı adı ve mesajı girin.");
+                    return;
+                }
+
+                $.post('/send_message', {
+                    sender_id: userId,
+                    receiver_name: receiverName,
+                    content: messageText
+                }, function (response) {
+                    if (response.success) {
+                        alert("Mesaj başarıyla gönderildi.");
+                        $('#receiver_name').val('');
+                        $('#message-text').val('');
+                    } else {
+                        alert("Mesaj gönderilemedi. Lütfen tekrar deneyin.");
+                    }
+                }).fail(function () {
+                    alert("Mesaj gönderilemedi. Lütfen tekrar deneyin.");
+                });
+            });
+        });
+
+        // Kargo fiyatını hesapla
+        function calculateShippingCost() {
+            var weight = document.getElementById('kargo_agirligi').value;
+            var costField = document.getElementById('kargo_fiyati');
+            var cost = 0;
+
+            if (weight) {
+                // 0.5 kg başına 10 TL olacak şekilde hesaplama
+                cost = Math.ceil(weight / 0.5) * 10;
+            }
+
+            costField.value = cost.toFixed(2); // Fiyatı iki ondalık basamak ile sınırlandır
+        }
+    </script>
+</body>
+</html>

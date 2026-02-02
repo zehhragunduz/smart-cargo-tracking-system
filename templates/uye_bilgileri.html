@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Üyelik Bilgileri</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stlye.css') }}">
+    
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Üyelik Bilgileri</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <div class="form-group">
+                <label for="kullanici_adi">Kullanıcı Adı:</label>
+                <input type="text" class="form-control" id="kullanici_adi" name="kullanici_adi" value="{{ kullanici.KullaniciAdi }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ kullanici.Email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gonderi_adres">Gönderi Adresi:</label>
+                <textarea class="form-control" id="gonderi_adres" name="gonderi_adres" rows="3" required>{{ kullanici.GonderiAdres }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
